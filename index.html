@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<button class="btns">连接蓝牙</button>
+<script>
+    let btn = document.querySelector('.btns')
+    btn.addEventListener('click', getBlueObject)
+
+    async function getBlueObject() {
+        let options = {
+            filters: [
+                {services: ['heart_rate']},
+                {services: [0x1802, 0x1803]},
+                {services: ['c48e6067-5295-48d3-8d5c-0395f61792b1']},
+                {namePrefix: 'Redmi'}
+            ],
+            optionalServices: ['battery_service']
+        }
+        navigator.bluetooth
+            .requestDevice(options)
+            .then(device => {
+                alert('Got device:', device.name)
+                // 在此处实现设备调用
+            }).catch((err) => {
+            alert("Error: " + err)
+        })
+    }
+</script>
+</body>
+
+</html>
